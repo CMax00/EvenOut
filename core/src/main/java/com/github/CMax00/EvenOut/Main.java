@@ -13,17 +13,31 @@ public class Main extends ApplicationAdapter {
     private Stage stage;
     private Viewport viewport;
 
+    private Texture cardTexture;
+    private Card card;
+
     @Override
     public void create() {
-        new FitViewport(800, 400);
+        viewport = new FitViewport(800, 400);
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
+
+        cardTexture = new Texture(Gdx.files.internal("Card.png"));
+        card = new Card(cardTexture, 100, 50, cardTexture.getWidth(), cardTexture.getHeight());
+
+        stage.addActor(card);
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height,true);
     }
 
     @Override

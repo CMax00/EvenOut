@@ -16,6 +16,6 @@ public class Card extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+        batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 }
