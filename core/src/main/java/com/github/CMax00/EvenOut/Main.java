@@ -18,12 +18,12 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
-        viewport = new FitViewport(800, 400);
+        viewport = new FitViewport(1280, 720);
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
         cardTexture = new Texture(Gdx.files.internal("Card.png"));
-        card = new Card(cardTexture, 100, 50, cardTexture.getWidth(), cardTexture.getHeight());
+        card = new Card(cardTexture, 0, 0, cardTexture.getWidth(), cardTexture.getHeight());
 
         stage.addActor(card);
     }

@@ -3,6 +3,8 @@ package com.github.CMax00.EvenOut;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 public class Card extends Actor {
 
@@ -12,6 +14,15 @@ public class Card extends Actor {
         this.texture = texture;
         setPosition(x, y);
         setSize(width, height);
+
+        this.addListener(
+            new DragListener() {
+                @Override
+                public void drag(InputEvent event, float x, float y, int pointer) {
+                    moveBy(x - getTouchDownX(), y - getTouchDownY());
+                }
+            }
+        );
     }
 
     @Override
