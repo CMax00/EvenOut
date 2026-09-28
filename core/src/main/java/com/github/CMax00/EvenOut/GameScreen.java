@@ -32,7 +32,7 @@ public class GameScreen implements Screen {
         cardTexture = new Texture(Gdx.files.internal("Card.png"));
 
         for (int i = 0; i < 7; i++){
-            cards.add(new Card(cardTexture, i * 50, 0, cardTexture.getWidth() * 0.7f, cardTexture.getHeight() * 0.7f));
+            cards.add(new Card(cardTexture, i * 50, 0, cardTexture.getWidth() * 2.5f, cardTexture.getHeight() * 2.5f));
         }
 
         for (Card card : cards) {
