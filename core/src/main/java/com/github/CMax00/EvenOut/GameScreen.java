@@ -9,13 +9,15 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.ArrayList;
+
 public class GameScreen implements Screen {
     private final Main game;
     private Stage stage;
     private Viewport viewport;
 
     private Texture cardTexture;
-    private Card card;
+    private ArrayList<Card> cards = new ArrayList<Card>();
 
     public GameScreen(Main game) {
         this.game = game;
@@ -28,9 +30,14 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         cardTexture = new Texture(Gdx.files.internal("Card.png"));
-        card = new Card(cardTexture, 0, 0, cardTexture.getWidth(), cardTexture.getHeight());
 
-        stage.addActor(card);
+        for (int i = 0; i < 7; i++){
+            cards.add(new Card(cardTexture, i * 50, 0, cardTexture.getWidth() * 0.7f, cardTexture.getHeight() * 0.7f));
+        }
+
+        for (Card card : cards) {
+            stage.addActor(card);
+        }
     }
 
     @Override
