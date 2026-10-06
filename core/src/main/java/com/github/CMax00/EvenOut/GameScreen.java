@@ -17,7 +17,9 @@ public class GameScreen implements Screen {
     private Viewport viewport;
 
     private Texture cardTexture;
+    private Texture boxTexture;
     private ArrayList<Card> cards = new ArrayList<Card>();
+    private Box box;
 
     public GameScreen(Main game) {
         this.game = game;
@@ -30,6 +32,12 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         cardTexture = new Texture(Gdx.files.internal("Card.png"));
+        boxTexture = new Texture(Gdx.files.internal("Box.png"));
+
+        float boxWidth = boxTexture.getWidth() * 4.5f;
+        float boxHeight = boxTexture.getHeight() * 2.5f;
+        box = new Box(boxTexture, stage.getWidth() - boxWidth, stage.getHeight() - boxHeight, boxWidth, boxHeight);
+        stage.addActor(box);
 
         for (int i = 0; i < 7; i++){
             cards.add(new Card(cardTexture, i * 50, 0, cardTexture.getWidth() * 2.5f, cardTexture.getHeight() * 2.5f));
@@ -38,6 +46,8 @@ public class GameScreen implements Screen {
         for (Card card : cards) {
             stage.addActor(card);
         }
+
+        System.out.println(cardTexture.getHeight() + "" + cardTexture.getWidth());
     }
 
     @Override
