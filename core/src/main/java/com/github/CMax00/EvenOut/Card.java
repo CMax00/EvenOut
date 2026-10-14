@@ -24,9 +24,17 @@ public class Card extends Actor {
 
                     Vector2 touchCords = new Vector2(event.getStageX(), event.getStageY());
                     box.stageToLocalCoordinates(touchCords);
+                }
+
+                @Override
+                public void dragStop(InputEvent event, float x, float y, int pointer) {
+                    super.dragStop(event, x, y, pointer);
+
+                    Vector2 touchCords = new Vector2(event.getStageX(), event.getStageY());
+                    box.stageToLocalCoordinates(touchCords);
 
                     if (box.hit(touchCords.x, touchCords.y, true) != null) {
-                        System.out.println("123");
+                        placeInBox();
                     }
                 }
             }
@@ -36,5 +44,9 @@ public class Card extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+    }
+
+    private void placeInBox() {
+
     }
 }
