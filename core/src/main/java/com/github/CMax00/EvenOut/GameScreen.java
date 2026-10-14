@@ -31,23 +31,33 @@ public class GameScreen implements Screen {
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
+        // Textures
         cardTexture = new Texture(Gdx.files.internal("Card.png"));
         boxTexture = new Texture(Gdx.files.internal("Box.png"));
 
-        float boxWidth = boxTexture.getWidth() * 4.5f;
-        float boxHeight = boxTexture.getHeight() * 2.5f;
-        box = new Box(boxTexture, stage.getWidth() - boxWidth, stage.getHeight() - boxHeight, boxWidth, boxHeight);
-        stage.addActor(box);
-
+        // Cards
+        float cardWidth = cardTexture.getWidth() * 2.5f;
+        float cardHeight = cardTexture.getHeight() * 2.5f;
         for (int i = 0; i < 7; i++){
-            cards.add(new Card(cardTexture, i * 50, 0, cardTexture.getWidth() * 2.5f, cardTexture.getHeight() * 2.5f));
+            cards.add(new Card(cardTexture, i * 50, 0, cardWidth, cardHeight));
         }
+
+        //Box
+        float targetCardWidth = (2f / 3f) * cardWidth;
+        float targetCardHeight = (2f / 3f) * cardHeight;
+        float paddingX = targetCardWidth * 0.1f;
+        float paddingY = targetCardHeight * 0.1f;
+        float boxWidth = (7 * targetCardWidth) + (8 * paddingX);
+        float boxHeight = targetCardHeight + (2 * paddingY);
+        box = new Box(boxTexture, stage.getWidth() - boxWidth, stage.getHeight() - boxHeight, boxWidth, boxHeight);
+
+
+        // Add Actors
+        stage.addActor(box);
 
         for (Card card : cards) {
             stage.addActor(card);
         }
-
-        System.out.println(cardTexture.getHeight() + "" + cardTexture.getWidth());
     }
 
     @Override
