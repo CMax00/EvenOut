@@ -38,9 +38,6 @@ public class GameScreen implements Screen {
         // Cards
         float cardWidth = cardTexture.getWidth() * 2.5f;
         float cardHeight = cardTexture.getHeight() * 2.5f;
-        for (int i = 0; i < 7; i++){
-            cards.add(new Card(cardTexture, i * 50, 0, cardWidth, cardHeight));
-        }
 
         //Box
         float targetCardWidth = (2f / 3f) * cardWidth;
@@ -51,6 +48,10 @@ public class GameScreen implements Screen {
         float boxHeight = targetCardHeight + (2 * paddingY);
         box = new Box(boxTexture, stage.getWidth() - boxWidth, stage.getHeight() - boxHeight, boxWidth, boxHeight);
 
+        //Cards
+        for (int i = 0; i < 7; i++){
+            cards.add(new Card(cardTexture, i * 50, 0, cardWidth, cardHeight, box));
+        }
 
         // Add Actors
         stage.addActor(box);
@@ -90,5 +91,9 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+    }
+
+    public Box getBox() {
+        return box;
     }
 }
