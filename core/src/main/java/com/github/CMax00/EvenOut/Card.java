@@ -10,11 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 public class Card extends Actor {
 
     private Texture texture;
+    private Box box;
+    private boolean inBox = false;
 
     public Card(Texture texture, float x, float y, float width, float height, Box box) {
         this.texture = texture;
         setPosition(x, y);
         setSize(width, height);
+        this.box = box;
 
         this.addListener(
             new DragListener() {
@@ -33,9 +36,12 @@ public class Card extends Actor {
                     Vector2 touchCords = new Vector2(event.getStageX(), event.getStageY());
                     box.stageToLocalCoordinates(touchCords);
 
-                    if (box.hit(touchCords.x, touchCords.y, true) != null) {
-                        placeInBox();
+                    if (!inBox) {
+                        if (box.hit(touchCords.x, touchCords.y, true) != null) {
+                            placeInBox();
+                        }
                     }
+
                 }
             }
         );
@@ -47,6 +53,9 @@ public class Card extends Actor {
     }
 
     private void placeInBox() {
-
+        box.addCard(this);
+        inBox = true;
+        setWidth(getWidth() * 2 / 3);
+        setHeight(getHeight() * 2 / 3);
     }
 }
