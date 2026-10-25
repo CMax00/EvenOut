@@ -10,18 +10,20 @@ public class Box extends Actor {
     private Texture texture;
     private ArrayList<Card> cards = new ArrayList<Card>();
     private float paddingX;
+    private float paddingSideX;
     private float paddingY;
 
-    public Box(Texture texture, float x, float y, float width, float height, float paddingX, float paddingY) {
+    public Box(Texture texture, float x, float y, float width, float height, float paddingX, float paddingY, float paddingSideX) {
         this.texture = texture;
         setPosition(x, y);
         setSize(width, height);
         this.paddingX = paddingX;
         this.paddingY = paddingY;
+        this.paddingSideX = paddingSideX;
     }
 
     public void addCard(Card card) {
-        float newCardX = getX() + getWidth() - paddingX - (cards.size() * (paddingX + card.getWidth())) - card.getWidth();
+        float newCardX = getX() + getWidth() - paddingX - (cards.size() * (paddingX + card.getWidth())) - card.getWidth() - paddingSideX;
         float newCardY = getY() + paddingY;
         card.setPosition(newCardX, newCardY);
         cards.add(card);
@@ -31,7 +33,7 @@ public class Box extends Actor {
         cards.removeIf(c -> c.equals(card));
         for (int i = 0; i < cards.size(); i++) {
             Card c = cards.get(i);
-            float newCardX = getX() + getWidth() - paddingX - (i * (paddingX + c.getWidth())) - c.getWidth();
+            float newCardX = getX() + getWidth() - paddingX - (i * (paddingX + c.getWidth())) - c.getWidth() - paddingSideX;
             float newCardY = getY() + paddingY;
             c.setPosition(newCardX, newCardY);
         }

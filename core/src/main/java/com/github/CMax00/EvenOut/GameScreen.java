@@ -3,7 +3,7 @@ package com.github.CMax00.EvenOut;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Actor;import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -43,10 +43,11 @@ public class GameScreen implements Screen {
         float targetCardWidth = (2f / 3f) * cardWidth;
         float targetCardHeight = (2f / 3f) * cardHeight;
         float paddingX = targetCardWidth * 0.05f;
-        float paddingY = targetCardHeight * 0.05f;
-        float boxWidth = (7 * targetCardWidth) + (8 * paddingX);
+        float paddingY = targetCardHeight * 0.13f;
+        float paddingSideX = 13;
+        float boxWidth = (7 * targetCardWidth) + (8 * paddingX) + 2 * paddingSideX;
         float boxHeight = targetCardHeight + (2 * paddingY);
-        box = new Box(boxTexture, stage.getWidth() - boxWidth, stage.getHeight() - boxHeight, boxWidth, boxHeight, paddingX, paddingY);
+        box = new Box(boxTexture, stage.getWidth() - boxWidth - 8, stage.getHeight() - boxHeight - 8, boxWidth, boxHeight, paddingX, paddingY, paddingSideX);
 
         //Cards
         for (int i = 0; i < 7; i++){

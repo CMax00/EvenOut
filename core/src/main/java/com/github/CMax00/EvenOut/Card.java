@@ -25,6 +25,8 @@ public class Card extends Actor {
                 public void dragStart(InputEvent event, float x, float y, int pointer) {
                     super.dragStart(event, x, y, pointer);
 
+                    toFront();
+
                     if (inBox) {
                         takeOutofBox();
                     }
