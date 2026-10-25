@@ -32,18 +32,18 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         // Textures
-        cardTexture = new Texture(Gdx.files.internal("Card.png"));
+        cardTexture = new Texture(Gdx.files.internal("Card_BG.png"));
         boxTexture = new Texture(Gdx.files.internal("Box.png"));
 
         // Cards
-        float cardWidth = cardTexture.getWidth() * 2.5f;
-        float cardHeight = cardTexture.getHeight() * 2.5f;
+        float cardWidth = cardTexture.getWidth() * 4f;
+        float cardHeight = cardTexture.getHeight() * 4f;
 
         //Box
         float targetCardWidth = (2f / 3f) * cardWidth;
         float targetCardHeight = (2f / 3f) * cardHeight;
-        float paddingX = targetCardWidth * 0.1f;
-        float paddingY = targetCardHeight * 0.1f;
+        float paddingX = targetCardWidth * 0.05f;
+        float paddingY = targetCardHeight * 0.05f;
         float boxWidth = (7 * targetCardWidth) + (8 * paddingX);
         float boxHeight = targetCardHeight + (2 * paddingY);
         box = new Box(boxTexture, stage.getWidth() - boxWidth, stage.getHeight() - boxHeight, boxWidth, boxHeight, paddingX, paddingY);
