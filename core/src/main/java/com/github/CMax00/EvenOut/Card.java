@@ -22,6 +22,15 @@ public class Card extends Actor {
         this.addListener(
             new DragListener() {
                 @Override
+                public void dragStart(InputEvent event, float x, float y, int pointer) {
+                    super.dragStart(event, x, y, pointer);
+
+                    if (inBox) {
+                        takeOutofBox();
+                    }
+                }
+
+                @Override
                 public void drag(InputEvent event, float x, float y, int pointer) {
                     moveBy(x - getTouchDownX(), y - getTouchDownY());
 
@@ -33,13 +42,13 @@ public class Card extends Actor {
                 public void dragStop(InputEvent event, float x, float y, int pointer) {
                     super.dragStop(event, x, y, pointer);
 
+                    // converts Card cords to global then to Box cords
                     Vector2 touchCords = new Vector2(event.getStageX(), event.getStageY());
                     box.stageToLocalCoordinates(touchCords);
 
-                    if (!inBox) {
-                        if (box.hit(touchCords.x, touchCords.y, true) != null) {
-                            placeInBox();
-                        }
+                    // checks if card is dropped in box
+                    if (box.hit(touchCords.x, touchCords.y, true) != null) {
+                        placeInBox();
                     }
 
                 }
@@ -53,9 +62,19 @@ public class Card extends Actor {
     }
 
     private void placeInBox() {
-        box.addCard(this);
-        inBox = true;
+        if (box.isBoxFull()) {
+            return;
+        }
         setWidth(getWidth() * 2 / 3);
         setHeight(getHeight() * 2 / 3);
+        box.addCard(this);
+        inBox = true;
+    }
+
+    private void takeOutofBox() {
+        inBox = false;
+        setWidth(getWidth() / (2f / 3f));
+        setHeight(getHeight() / (2f / 3f));
+        box.removeCard(this);
     }
 }

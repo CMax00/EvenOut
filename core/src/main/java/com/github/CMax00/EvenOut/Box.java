@@ -9,19 +9,44 @@ import java.util.ArrayList;
 public class Box extends Actor {
     private Texture texture;
     private ArrayList<Card> cards = new ArrayList<Card>();
+    private float paddingX;
+    private float paddingY;
 
-    public Box(Texture texture, float x, float y, float width, float height) {
+    public Box(Texture texture, float x, float y, float width, float height, float paddingX, float paddingY) {
         this.texture = texture;
         setPosition(x, y);
         setSize(width, height);
+        this.paddingX = paddingX;
+        this.paddingY = paddingY;
     }
 
     public void addCard(Card card) {
+        float newCardX = getX() + getWidth() - paddingX - (cards.size() * (paddingX + card.getWidth())) - card.getWidth();
+        float newCardY = getY() + paddingY;
+        card.setPosition(newCardX, newCardY);
         cards.add(card);
+    }
+
+    public void removeCard(Card card) {
+        cards.removeIf(c -> c.equals(card));
+        for (int i = 0; i < cards.size(); i++) {
+            Card c = cards.get(i);
+            float newCardX = getX() + getWidth() - paddingX - (i * (paddingX + c.getWidth())) - c.getWidth();
+            float newCardY = getY() + paddingY;
+            c.setPosition(newCardX, newCardY);
+        }
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+    }
+
+    public boolean isBoxFull() {
+        if (cards.size() >= 7) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

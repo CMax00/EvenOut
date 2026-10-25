@@ -46,7 +46,7 @@ public class GameScreen implements Screen {
         float paddingY = targetCardHeight * 0.1f;
         float boxWidth = (7 * targetCardWidth) + (8 * paddingX);
         float boxHeight = targetCardHeight + (2 * paddingY);
-        box = new Box(boxTexture, stage.getWidth() - boxWidth, stage.getHeight() - boxHeight, boxWidth, boxHeight);
+        box = new Box(boxTexture, stage.getWidth() - boxWidth, stage.getHeight() - boxHeight, boxWidth, boxHeight, paddingX, paddingY);
 
         //Cards
         for (int i = 0; i < 7; i++){
