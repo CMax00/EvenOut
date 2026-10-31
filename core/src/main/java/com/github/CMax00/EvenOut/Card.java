@@ -12,13 +12,17 @@ public class Card extends Actor {
     private Texture texture;
     private Box box;
     private boolean inBox = false;
+    private boolean active;
 
-    public Card(Texture texture, float x, float y, float width, float height, Box box) {
+    public Card(Texture texture, float x, float y, float width, float height, Box box, boolean active) {
         this.texture = texture;
         setPosition(x, y);
         setSize(width, height);
         this.box = box;
-
+        this.active = active;
+        if (!active) {
+            return;
+        }
         this.addListener(
             new DragListener() {
                 @Override

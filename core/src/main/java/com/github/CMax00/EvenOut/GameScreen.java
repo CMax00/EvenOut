@@ -20,7 +20,6 @@ public class GameScreen implements Screen {
     private Texture boxTexture;
     private ArrayList<Card> cards = new ArrayList<Card>();
     private Box box;
-
     public GameScreen(Main game) {
         this.game = game;
     }
@@ -48,11 +47,24 @@ public class GameScreen implements Screen {
         float paddingSideX = 13;
         float boxWidth = (7 * targetCardWidth) + (8 * paddingX) + 2 * paddingSideX;
         float boxHeight = targetCardHeight + (2 * paddingY);
-        box = new Box(boxTexture, stage.getWidth() - boxWidth - 8, stage.getHeight() - boxHeight - 8, boxWidth, boxHeight, paddingX, paddingY, paddingSideX);
+        float boxX = stage.getWidth() - boxWidth - 8;
+        float boxY = stage.getHeight() - boxHeight - 8;
+        box = new Box(boxTexture, boxX, boxY, boxWidth, boxHeight, paddingX, paddingY, paddingSideX);
 
-        //Cards
-        for (int i = 0; i < 7; i++){
-            cards.add(new Card(cardTexture, i * 50, 0, cardWidth, cardHeight, box));
+        //DrawPileTexture Cards
+        //This are just th displayed cards not the actual pile
+        float drawPileHeight = boxHeight;
+        float drawPileWidth = boxHeight * 40/56;
+        float drawPileY = boxY;
+        float drawPileX = boxX + 2 * (-drawPileWidth - 10);
+            //It works
+        for (int i = 0; i < 4; i++){
+            cards.add(new Card(cardTexture,
+                drawPileX - i * drawPileWidth * 0.015f,
+                drawPileY + i * drawPileHeight * 0.035f,
+                (drawPileHeight - 4 * drawPileHeight * 0.035f) * 40 / 56,
+                drawPileHeight - 4 * drawPileHeight * 0.035f,
+                box, false));
         }
 
         // Add Actors
@@ -95,7 +107,4 @@ public class GameScreen implements Screen {
         stage.dispose();
     }
 
-    public Box getBox() {
-        return box;
-    }
 }
