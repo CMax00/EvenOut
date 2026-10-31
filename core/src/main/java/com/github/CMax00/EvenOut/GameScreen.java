@@ -40,6 +40,7 @@ public class GameScreen implements Screen {
         float cardHeight = cardTexture.getHeight() * 4f;
 
         //Box
+        // Calculates the size of the Box in proportion to the cards
         float targetCardWidth = (2f / 3f) * cardWidth;
         float targetCardHeight = (2f / 3f) * cardHeight;
         float paddingX = targetCardWidth * 0.05f;

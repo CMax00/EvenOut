@@ -67,8 +67,7 @@ public class Card extends Actor {
         if (box.isBoxFull()) {
             return;
         }
-        setWidth(getWidth() * 2 / 3);
-        setHeight(getHeight() * 2 / 3);
+        // the transformation happens in addCard
         box.addCard(this);
         inBox = true;
     }

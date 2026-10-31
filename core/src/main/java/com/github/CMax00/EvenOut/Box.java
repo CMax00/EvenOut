@@ -3,6 +3,7 @@ package com.github.CMax00.EvenOut;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import java.util.ArrayList;
 
@@ -23,9 +24,16 @@ public class Box extends Actor {
     }
 
     public void addCard(Card card) {
-        float newCardX = getX() + getWidth() - paddingX - (cards.size() * (paddingX + card.getWidth())) - card.getWidth() - paddingSideX;
+        float newCardWidth = card.getWidth() * 2 / 3;
+        float newCardHeight = card.getHeight() * 2 / 3;
+        float newCardX = getX() + getWidth() - paddingX - (cards.size() * (paddingX + newCardWidth)) - newCardWidth - paddingSideX;
         float newCardY = getY() + paddingY;
-        card.setPosition(newCardX, newCardY);
+
+        card.addAction(Actions.parallel(
+            Actions.moveTo(newCardX, newCardY, 0.25f),
+            Actions.sizeTo(newCardWidth,newCardHeight, 0.25f)
+        ));
+
         cards.add(card);
     }
 
@@ -35,7 +43,7 @@ public class Box extends Actor {
             Card c = cards.get(i);
             float newCardX = getX() + getWidth() - paddingX - (i * (paddingX + c.getWidth())) - c.getWidth() - paddingSideX;
             float newCardY = getY() + paddingY;
-            c.setPosition(newCardX, newCardY);
+            c.addAction(Actions.moveTo(newCardX, newCardY, 0.25f));
         }
     }
 
