@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class Card extends Actor {
 
-    private ArrayList<Texture> textures;
-    private Box box;
+    private final ArrayList<Texture> textures;
+    private final Box box;
     private boolean inBox = false;
     private boolean active;
 

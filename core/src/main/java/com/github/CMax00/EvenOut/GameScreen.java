@@ -3,11 +3,9 @@ package com.github.CMax00.EvenOut;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
@@ -25,10 +23,11 @@ public class GameScreen implements Screen {
     private Texture item4Texture;
     private Texture item5Texture;
     private Texture item6Texture;
-    private ArrayList<Texture> cardTextures = new ArrayList<>();
+    private final ArrayList<Texture> cardTextures = new ArrayList<>();
 
-    private ArrayList<Card> cards = new ArrayList<Card>();
+    private final ArrayList<Card> cards = new ArrayList<Card>();
     private Box box;
+
     public GameScreen(Main game) {
         this.game = game;
     }
@@ -39,17 +38,7 @@ public class GameScreen implements Screen {
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
-        // Textures
-        boxTexture = new Texture(Gdx.files.internal("Box.png"));
-        cardTextures.add(cardTexture = new Texture(Gdx.files.internal("Card_BG.png")));
-        cardTextures.add(item1Texture = new Texture(Gdx.files.internal("Card_0000_Lightning.png")));
-        cardTextures.add(item2Texture = new Texture(Gdx.files.internal("Card_0001_Flower.png")));
-        cardTextures.add(item3Texture = new Texture(Gdx.files.internal("Card_0002_Crescent Moon.png")));
-        cardTextures.add(item4Texture = new Texture(Gdx.files.internal("Card_0003_Raindrop.png")));
-        cardTextures.add(item5Texture = new Texture(Gdx.files.internal("Card_0004_Tree.png")));
-        cardTextures.add(item6Texture = new Texture(Gdx.files.internal("Card_0005_Heart.png")));
-
-
+        initializeTextures();
 
         // Cards
         float cardWidth = cardTexture.getWidth() * 4f;
@@ -71,11 +60,11 @@ public class GameScreen implements Screen {
         //DrawPileTexture Cards
         //This are just th displayed cards not the actual pile
         float drawPileHeight = boxHeight;
-        float drawPileWidth = boxHeight * 40/56;
+        float drawPileWidth = boxHeight * 40 / 56;
         float drawPileY = boxY;
         float drawPileX = boxX + 2 * (-drawPileWidth - 10);
-            //It works
-        for (int i = 0; i < 4; i++){
+        //This works
+        for (int i = 0; i < 4; i++) {
             cards.add(new Card(cardTextures,
                 drawPileX - i * drawPileWidth * 0.015f,
                 drawPileY + i * drawPileHeight * 0.035f,
@@ -84,21 +73,37 @@ public class GameScreen implements Screen {
                 box, false));
         }
 
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             cards.add(new Card(cardTextures,
-                100 + i * drawPileWidth ,
+                100 + i * drawPileWidth,
                 100,
                 cardWidth,
                 cardHeight,
                 box, true));
         }
 
+        addActors();
+    }
+
+    private void addActors() {
         // Add Actors
         stage.addActor(box);
 
         for (Card card : cards) {
             stage.addActor(card);
         }
+    }
+
+    private void initializeTextures() {
+        // Textures
+        boxTexture = new Texture(Gdx.files.internal("Box.png"));
+        cardTextures.add(cardTexture = new Texture(Gdx.files.internal("Card_BG.png")));
+        cardTextures.add(item1Texture = new Texture(Gdx.files.internal("Card_0000_Lightning.png")));
+        cardTextures.add(item2Texture = new Texture(Gdx.files.internal("Card_0001_Flower.png")));
+        cardTextures.add(item3Texture = new Texture(Gdx.files.internal("Card_0002_Crescent Moon.png")));
+        cardTextures.add(item4Texture = new Texture(Gdx.files.internal("Card_0003_Raindrop.png")));
+        cardTextures.add(item5Texture = new Texture(Gdx.files.internal("Card_0004_Tree.png")));
+        cardTextures.add(item6Texture = new Texture(Gdx.files.internal("Card_0005_Heart.png")));
     }
 
     @Override
@@ -110,7 +115,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height,true);
+        viewport.update(width, height, true);
     }
 
     @Override

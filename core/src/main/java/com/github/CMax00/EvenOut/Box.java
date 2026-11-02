@@ -8,11 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import java.util.ArrayList;
 
 public class Box extends Actor {
-    private Texture texture;
-    private ArrayList<Card> cards = new ArrayList<Card>();
-    private float paddingX;
-    private float paddingSideX;
-    private float paddingY;
+    private final Texture texture;
+    private final ArrayList<Card> cards = new ArrayList<Card>();
+    private final float paddingX;
+    private final float paddingSideX;
+    private final float paddingY;
 
     public Box(Texture texture, float x, float y, float width, float height, float paddingX, float paddingY, float paddingSideX) {
         this.texture = texture;
@@ -31,7 +31,7 @@ public class Box extends Actor {
 
         card.addAction(Actions.parallel(
             Actions.moveTo(newCardX, newCardY, 0.25f),
-            Actions.sizeTo(newCardWidth,newCardHeight, 0.25f)
+            Actions.sizeTo(newCardWidth, newCardHeight, 0.25f)
         ));
 
         cards.add(card);
@@ -53,10 +53,6 @@ public class Box extends Actor {
     }
 
     public boolean isBoxFull() {
-        if (cards.size() >= 7) {
-            return true;
-        } else {
-            return false;
-        }
+        return cards.size() >= 7;
     }
 }
