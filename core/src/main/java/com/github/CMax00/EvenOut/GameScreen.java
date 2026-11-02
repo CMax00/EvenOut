@@ -3,6 +3,7 @@ package com.github.CMax00.EvenOut;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -18,6 +19,14 @@ public class GameScreen implements Screen {
 
     private Texture cardTexture;
     private Texture boxTexture;
+    private Texture item1Texture;
+    private Texture item2Texture;
+    private Texture item3Texture;
+    private Texture item4Texture;
+    private Texture item5Texture;
+    private Texture item6Texture;
+    private ArrayList<Texture> cardTextures = new ArrayList<>();
+
     private ArrayList<Card> cards = new ArrayList<Card>();
     private Box box;
     public GameScreen(Main game) {
@@ -31,8 +40,16 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         // Textures
-        cardTexture = new Texture(Gdx.files.internal("Card_BG.png"));
         boxTexture = new Texture(Gdx.files.internal("Box.png"));
+        cardTextures.add(cardTexture = new Texture(Gdx.files.internal("Card_BG.png")));
+        cardTextures.add(item1Texture = new Texture(Gdx.files.internal("Card_0000_Lightning.png")));
+        cardTextures.add(item2Texture = new Texture(Gdx.files.internal("Card_0001_Flower.png")));
+        cardTextures.add(item3Texture = new Texture(Gdx.files.internal("Card_0002_Crescent Moon.png")));
+        cardTextures.add(item4Texture = new Texture(Gdx.files.internal("Card_0003_Raindrop.png")));
+        cardTextures.add(item5Texture = new Texture(Gdx.files.internal("Card_0004_Tree.png")));
+        cardTextures.add(item6Texture = new Texture(Gdx.files.internal("Card_0005_Heart.png")));
+
+
 
         // Cards
         float cardWidth = cardTexture.getWidth() * 4f;
@@ -59,12 +76,21 @@ public class GameScreen implements Screen {
         float drawPileX = boxX + 2 * (-drawPileWidth - 10);
             //It works
         for (int i = 0; i < 4; i++){
-            cards.add(new Card(cardTexture,
+            cards.add(new Card(cardTextures,
                 drawPileX - i * drawPileWidth * 0.015f,
                 drawPileY + i * drawPileHeight * 0.035f,
                 (drawPileHeight - 4 * drawPileHeight * 0.035f) * 40 / 56,
                 drawPileHeight - 4 * drawPileHeight * 0.035f,
                 box, false));
+        }
+
+        for (int i = 0; i < 4; i++){
+            cards.add(new Card(cardTextures,
+                100 + i * drawPileWidth ,
+                100,
+                cardWidth,
+                cardHeight,
+                box, true));
         }
 
         // Add Actors

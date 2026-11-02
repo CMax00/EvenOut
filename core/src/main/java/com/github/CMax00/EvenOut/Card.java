@@ -7,15 +7,17 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
+import java.util.ArrayList;
+
 public class Card extends Actor {
 
-    private Texture texture;
+    private ArrayList<Texture> textures;
     private Box box;
     private boolean inBox = false;
     private boolean active;
 
-    public Card(Texture texture, float x, float y, float width, float height, Box box, boolean active) {
-        this.texture = texture;
+    public Card(ArrayList<Texture> textures, float x, float y, float width, float height, Box box, boolean active) {
+        this.textures = textures;
         setPosition(x, y);
         setSize(width, height);
         this.box = box;
@@ -64,7 +66,9 @@ public class Card extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+        for (Texture texture : textures) {
+            batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+        }
     }
 
     private void placeInBox() {
