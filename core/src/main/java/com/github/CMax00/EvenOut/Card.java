@@ -15,7 +15,7 @@ public class Card extends Actor {
     private final Box box;
     private boolean inBox = false;
     private boolean active;
-    private ArrayList<Boolean> items;
+    private boolean[] items;
 
     public Card(ArrayList<Texture> textures, float x, float y, float width, float height, Box box, boolean active) {
         this.textures = textures;
@@ -65,7 +65,7 @@ public class Card extends Actor {
         );
     }
 
-    public Card(ArrayList<Texture> textures, float x, float y, float width, float height, Box box, boolean active, ArrayList<Boolean> items) {
+    public Card(ArrayList<Texture> textures, float x, float y, float width, float height, Box box, boolean active, boolean[] items) {
         this(textures,x,y,width,height,box,active);
         this.items = items;
     }
@@ -76,7 +76,7 @@ public class Card extends Actor {
             batch.draw(textures.get(0), getX(), getY(), getWidth(), getHeight());
         } else {
             for (int i = 0; i < 6; i++) {
-                if (items.get(i)) {
+                if (items[i]) {
                     batch.draw(textures.get(i + 1), getX(), getY(), getWidth(), getHeight());
                 }
             }
