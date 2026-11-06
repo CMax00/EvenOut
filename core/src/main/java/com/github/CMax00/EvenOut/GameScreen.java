@@ -27,6 +27,7 @@ public class GameScreen implements Screen {
 
     private final ArrayList<Card> cards = new ArrayList<Card>();
     private Box box;
+    private DrawPile drawPile;
 
     public GameScreen(Main game) {
         this.game = game;
@@ -39,6 +40,7 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         initializeTextures();
+        drawPile = new DrawPile();
 
         // Cards
         float cardWidth = cardTexture.getWidth() * 4f;
@@ -73,13 +75,13 @@ public class GameScreen implements Screen {
                 box, false));
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             cards.add(new Card(cardTextures,
-                100 + i * drawPileWidth,
+                100 + i * cardWidth,
                 100,
                 cardWidth,
                 cardHeight,
-                box, true));
+                box, true, drawPile.drawCard()));
         }
 
         addActors();

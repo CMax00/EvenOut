@@ -72,9 +72,8 @@ public class Card extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (items == null) {
-            batch.draw(textures.get(0), getX(), getY(), getWidth(), getHeight());
-        } else {
+        batch.draw(textures.get(0), getX(), getY(), getWidth(), getHeight());
+        if (items != null){
             for (int i = 0; i < 6; i++) {
                 if (items[i]) {
                     batch.draw(textures.get(i + 1), getX(), getY(), getWidth(), getHeight());
