@@ -17,8 +17,15 @@ public class DrawPile {
             for (int u = 0; u < 6; u++) {
                 cardsSetup[i][u] = r.nextBoolean();
             }
+
+            if (Arrays.equals(cardsSetup[i], new boolean[6])) {
+                i--;
+                continue;
+            }
+
             for (int l = 0; l < i; l++) {
-                if (Arrays.equals(cardsSetup[i], cardsSetup[l]) || Arrays.equals(cardsSetup[i], new boolean[6])) {
+                if (Arrays.equals(cardsSetup[i], cardsSetup[l])) {
+                    i--;
                     break;
                 }
             }
