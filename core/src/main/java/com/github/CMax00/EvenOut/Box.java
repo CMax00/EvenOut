@@ -6,10 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Box extends Actor {
     private final Texture texture;
-    private final ArrayList<Card> cards = new ArrayList<Card>();
+    private final ArrayList<Card> cardsInBox = new ArrayList<Card>();
     private final float paddingX;
     private final float paddingSideX;
     private final float paddingY;
@@ -26,7 +27,7 @@ public class Box extends Actor {
     public void addCard(Card card) {
         float newCardWidth = card.getWidth() * 2 / 3;
         float newCardHeight = card.getHeight() * 2 / 3;
-        float newCardX = getX() + getWidth() - paddingX - (cards.size() * (paddingX + newCardWidth)) - newCardWidth - paddingSideX;
+        float newCardX = getX() + getWidth() - paddingX - (cardsInBox.size() * (paddingX + newCardWidth)) - newCardWidth - paddingSideX;
         float newCardY = getY() + paddingY;
 
         card.addAction(Actions.parallel(
@@ -34,13 +35,15 @@ public class Box extends Actor {
             Actions.sizeTo(newCardWidth, newCardHeight, 0.25f)
         ));
 
-        cards.add(card);
+        cardsInBox.add(card);
+        checkAllEven();
     }
 
     public void removeCard(Card card) {
-        cards.removeIf(c -> c.equals(card));
-        for (int i = 0; i < cards.size(); i++) {
-            Card c = cards.get(i);
+        cardsInBox.removeIf(c -> c.equals(card));
+        //fill place between the remaining cards
+        for (int i = 0; i < cardsInBox.size(); i++) {
+            Card c = cardsInBox.get(i);
             float newCardX = getX() + getWidth() - paddingX - (i * (paddingX + c.getWidth())) - c.getWidth() - paddingSideX;
             float newCardY = getY() + paddingY;
             c.addAction(Actions.moveTo(newCardX, newCardY, 0.25f));
@@ -53,6 +56,26 @@ public class Box extends Actor {
     }
 
     public boolean isBoxFull() {
-        return cards.size() >= 7;
+        return cardsInBox.size() >= 7;
     }
+
+    public void checkAllEven() {
+        // count each item
+        int[] items = new int[6];
+        for (Card card : cardsInBox) {
+            System.out.println(Arrays.toString(card.getItems()));
+            for (int i = 0; i < 6; i++) {
+                if (card.getItems()[i]) {
+                    items[i] += 1;
+                }
+            }
+        }
+        // check if all are even
+        for (int item : items) {
+            if (item % 2 != 0) {
+                return;
+            }
+        }
+    }
+
 }

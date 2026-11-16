@@ -26,6 +26,7 @@ public class GameScreen implements Screen {
     private final ArrayList<Texture> cardTextures = new ArrayList<>();
 
     private final ArrayList<Card> cards = new ArrayList<Card>();
+    private final ArrayList<Card> drawPileTextureCards = new ArrayList<Card>();
     private Box box;
     private DrawPile drawPile;
 
@@ -67,7 +68,7 @@ public class GameScreen implements Screen {
         float drawPileX = boxX + 2 * (-drawPileWidth - 10);
         //This works
         for (int i = 0; i < 4; i++) {
-            cards.add(new Card(cardTextures,
+            drawPileTextureCards.add(new Card(cardTextures,
                 drawPileX - i * drawPileWidth * 0.015f,
                 drawPileY + i * drawPileHeight * 0.035f,
                 (drawPileHeight - 4 * drawPileHeight * 0.035f) * 40 / 56,
@@ -75,7 +76,7 @@ public class GameScreen implements Screen {
                 box, false));
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 7; i++) {
             cards.add(new Card(cardTextures,
                 100 + i * cardWidth,
                 100,
@@ -92,6 +93,9 @@ public class GameScreen implements Screen {
         stage.addActor(box);
 
         for (Card card : cards) {
+            stage.addActor(card);
+        }
+        for (Card card : drawPileTextureCards) {
             stage.addActor(card);
         }
     }

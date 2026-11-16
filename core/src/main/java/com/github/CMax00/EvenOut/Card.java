@@ -97,4 +97,8 @@ public class Card extends Actor {
         setHeight(getHeight() / (2f / 3f));
         box.removeCard(this);
     }
+
+    public boolean[] getItems() {
+        return items;
+    }
 }
