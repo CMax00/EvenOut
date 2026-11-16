@@ -27,11 +27,16 @@ public class GameScreen implements Screen {
 
     private final ArrayList<Card> cards = new ArrayList<Card>();
     private final ArrayList<Card> drawPileTextureCards = new ArrayList<Card>();
+    private final ArrayList<Card> discardPileTextureCards = new ArrayList<Card>();
     private Box box;
     private DrawPile drawPile;
 
-    public float cardWidth;
-    public float cardHeight;
+    private float cardWidth;
+    private float cardHeight;
+    private float drawPileHeight;
+    private float drawPileWidth;
+    private float drawPileY;
+    private float drawPileX;
 
     public GameScreen(Main game) {
         this.game = game;
@@ -65,10 +70,10 @@ public class GameScreen implements Screen {
 
         //DrawPileTexture Cards
         //This are just th displayed cards not the actual pile
-        float drawPileHeight = boxHeight;
-        float drawPileWidth = boxHeight * 40 / 56;
-        float drawPileY = boxY;
-        float drawPileX = boxX + 2 * (-drawPileWidth - 10);
+        drawPileHeight = boxHeight;
+        drawPileWidth = boxHeight * 40 / 56;
+        drawPileY = boxY;
+        drawPileX = boxX + 2 * (-drawPileWidth - 10);
         //This works
         for (int i = 0; i < 4; i++) {
             drawPileTextureCards.add(new Card(cardTextures,
@@ -80,17 +85,11 @@ public class GameScreen implements Screen {
         }
 
         drawCards();
+        createDiscardPile();
 
-        addActors();
-    }
-
-    private void addActors() {
         // Add Actors
         stage.addActor(box);
 
-        for (Card card : cards) {
-            stage.addActor(card);
-        }
         for (Card card : drawPileTextureCards) {
             stage.addActor(card);
         }
@@ -110,10 +109,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        box.checkAllEven();
+        if (drawPile.getCurrentCard() >= 63) {
+            drawPileTextureCards.clear();
+        }
+
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         stage.act(delta);
         stage.draw();
-        box.checkAllEven();
     }
 
     public void drawCards() {
@@ -125,6 +128,26 @@ public class GameScreen implements Screen {
                 cardWidth,
                 cardHeight,
                 box, true, drawPile.drawCard()));
+        }
+
+        for (Card card : cards) {
+            stage.addActor(card);
+        }
+    }
+
+    public void createDiscardPile() {
+        // discard Pile is same as drawPile but shifted
+        drawPileX += drawPileWidth + 10;
+        for (int i = 0; i < 4; i++) {
+            discardPileTextureCards.add(new Card(cardTextures,
+                drawPileX - i * drawPileWidth * 0.015f,
+                drawPileY + i * drawPileHeight * 0.035f,
+                (drawPileHeight - 4 * drawPileHeight * 0.035f) * 40 / 56,
+                drawPileHeight - 4 * drawPileHeight * 0.035f,
+                box, false));
+        }
+        for (Card card : discardPileTextureCards) {
+            stage.addActor(card);
         }
     }
 

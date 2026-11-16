@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class DrawPile {
     boolean[][] cardsSetup = new boolean[63][6];
+
     int currentCard = -1;
 
     public DrawPile() {
@@ -35,5 +36,9 @@ public class DrawPile {
     public boolean[] drawCard() {
         currentCard++;
         return cardsSetup[currentCard];
+    }
+
+    public int getCurrentCard() {
+        return currentCard;
     }
 }
