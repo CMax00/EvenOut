@@ -30,6 +30,9 @@ public class GameScreen implements Screen {
     private Box box;
     private DrawPile drawPile;
 
+    public float cardWidth;
+    public float cardHeight;
+
     public GameScreen(Main game) {
         this.game = game;
     }
@@ -44,8 +47,8 @@ public class GameScreen implements Screen {
         drawPile = new DrawPile();
 
         // Cards
-        float cardWidth = cardTexture.getWidth() * 4f;
-        float cardHeight = cardTexture.getHeight() * 4f;
+        cardWidth = cardTexture.getWidth() * 4f;
+        cardHeight = cardTexture.getHeight() * 4f;
 
         //Box
         // Calculates the size of the Box in proportion to the cards
@@ -76,14 +79,7 @@ public class GameScreen implements Screen {
                 box, false));
         }
 
-        for (int i = 0; i < 7; i++) {
-            cards.add(new Card(cardTextures,
-                100 + i * cardWidth,
-                100,
-                cardWidth,
-                cardHeight,
-                box, true, drawPile.drawCard()));
-        }
+        drawCards();
 
         addActors();
     }
@@ -117,6 +113,19 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         stage.act(delta);
         stage.draw();
+        box.checkAllEven();
+    }
+
+    public void drawCards() {
+        int currentCards = cards.size();
+        for (int i = 0; i < 7 - currentCards; i++) {
+            cards.add(new Card(cardTextures,
+                100 + i * cardWidth,
+                100,
+                cardWidth,
+                cardHeight,
+                box, true, drawPile.drawCard()));
+        }
     }
 
     @Override

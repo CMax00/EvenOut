@@ -63,7 +63,6 @@ public class Box extends Actor {
         // count each item
         int[] items = new int[6];
         for (Card card : cardsInBox) {
-            System.out.println(Arrays.toString(card.getItems()));
             for (int i = 0; i < 6; i++) {
                 if (card.getItems()[i]) {
                     items[i] += 1;
